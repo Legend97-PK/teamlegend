@@ -1,2 +1,0 @@
-# teamlegend
-Hacker
