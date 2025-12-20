@@ -84,26 +84,7 @@ module.exports = async (req, res) => {
     res.statusCode = 500;
     res.end(JSON.stringify({ error: "Fetch failed", details: err.message }));
   }
-};const http = require("http");
-const https = require("https");
-const zlib = require("zlib");
-
-module.exports = async (req, res) => {
-  const get = (url, headers) =>
-    new Promise((resolve, reject) => {
-      const lib = url.startsWith("https") ? https : http;
-      const request = lib.get(url, { headers }, (response) => {
-        let chunks = [];
-
-        response.on("data", (chunk) => chunks.push(chunk));
-        response.on("end", () => {
-          const buffer = Buffer.concat(chunks);
-
-          
-          const encoding = response.headers["content-encoding"];
-          try {
-            if (encoding === "gzip") {
-              zlib.gunzip(buffer, (err, decoded) => {
+};              zlib.gunzip(buffer, (err, decoded) => {
                 if (err) return reject(err);
                 resolve(decoded.toString());
               });
